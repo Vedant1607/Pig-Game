@@ -65,14 +65,15 @@ btnRollDice.addEventListener('click', function (){
 btnHold.addEventListener('click', function (){
     if (gameRunning){
         score[activePlayer] += currentScore;
-        score0El.textContent = score[0];
-        score1El.textContent = score[1];
+        document.getElementById(`score--${activePlayer}`).textContent = score[activePlayer]
+
         if (score[activePlayer] >= 20){
             gameRunning = false;
             document.querySelector(`.player--${activePlayer}`).classList.add('player--winner');
             diceEl.classList.add('hidden');
+        } else {
+            switchPlayer();
         }
-        switchPlayer();
     }
 });
 
