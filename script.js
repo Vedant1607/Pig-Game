@@ -75,3 +75,5 @@ btnHold.addEventListener('click', function (){
         switchPlayer();
     }
 });
+
+btnNewGame.addEventListener('click', initGame);
