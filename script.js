@@ -28,10 +28,15 @@ const initGame = function(){
     currentScore1El.textContent = 0;
 
     diceEl.classList.add('hidden');
+    player0El.classList.remove('player--winner');
+    player1El.classList.remove('player--winner');
+    player0El.classList.add('player--active');
+    player1El.classList.remove('player--active');
 };
 
 initGame();
 
+// Function to switch active player
 const switchPlayer = function () {
     currentScore = 0;
     document.getElementById(`current--${activePlayer}`).textContent = currentScore;
@@ -40,6 +45,7 @@ const switchPlayer = function () {
     player1El.classList.toggle('player--active');
 };
 
+// Roll dice button
 btnRollDice.addEventListener('click', function (){
     if (gameRunning){
         let dice = Math.trunc(Math.random() * 6) + 1;
@@ -52,5 +58,20 @@ btnRollDice.addEventListener('click', function (){
         } else {
             switchPlayer();
         }
+    }
+});
+
+// Hold button to add current score to the player score and change the active player
+btnHold.addEventListener('click', function (){
+    if (gameRunning){
+        score[activePlayer] += currentScore;
+        score0El.textContent = score[0];
+        score1El.textContent = score[1];
+        if (score[activePlayer] >= 20){
+            gameRunning = false;
+            document.querySelector(`.player--${activePlayer}`).classList.add('player--winner');
+            diceEl.classList.add('hidden');
+        }
+        switchPlayer();
     }
 });
